@@ -10,7 +10,7 @@ export async function fetchEvents({ searchTerm, signal }) {
     url += "?search=" + searchTerm;
   }
 
-  const response = await fetch(url, signal);
+  const response = await fetch(url, { signal });
 
   if (!response.ok) {
     const error = new Error("An error occurred while fetching the events");
@@ -61,4 +61,34 @@ export async function fetchSelectableImages({ signal }) {
   const { images } = await response.json();
 
   return images;
+}
+
+export async function fetchEvent({ id, signal }) {
+  const response = await fetch("http://localhost:3000/events/" + id, {
+    signal,
+  });
+  if (!response.ok) {
+    const error = new Error("An error occurred while getting the event");
+    error.code = response.status;
+    error.info = await response.json();
+    throw error;
+  }
+
+  const { event } = await response.json();
+
+  return event;
+}
+
+export async function deleteEvent({ id }) {
+  const response = await fetch("http://localhost:3000/events/" + id, {
+    method: "DELETE",
+  });
+  if (!response.ok) {
+    const error = new Error("An error occurred while removing the event");
+    error.code = response.status;
+    error.info = await response.json();
+    throw error;
+  }
+
+  return await response.json();
 }
