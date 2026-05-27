@@ -50,7 +50,11 @@ export default function EventDetails() {
   let content = "";
 
   if (isPending) {
-    content = <LoadingIndicator />;
+    content = (
+      <div className="center">
+        <LoadingIndicator />
+      </div>
+    );
   }
   if (isError) {
     content = (

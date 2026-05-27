@@ -45,6 +45,24 @@ export async function createNewEvent(eventData) {
 
   return event;
 }
+export async function updateEvent({ event, id }) {
+  const response = await fetch(`http://localhost:3000/events` + "id", {
+    method: "POST",
+    body: JSON.stringify({ event }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const error = new Error("An error occurred while creating the event");
+    error.code = response.status;
+    error.info = await response.json();
+    throw error;
+  }
+
+  return await response.json();
+}
 
 export async function fetchSelectableImages({ signal }) {
   const response = await fetch(`http://localhost:3000/events/images`, {
