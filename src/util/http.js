@@ -46,9 +46,9 @@ export async function createNewEvent(eventData) {
   return event;
 }
 export async function updateEvent({ event, id }) {
-  const response = await fetch(`http://localhost:3000/events` + "id", {
-    method: "POST",
-    body: JSON.stringify({ event }),
+  const response = await fetch(`http://localhost:3000/events/` + id, {
+    method: "PUT",
+    body: JSON.stringify({ event: event }),
     headers: {
       "Content-Type": "application/json",
     },
